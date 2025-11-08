@@ -14,7 +14,615 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
     <style>
-        @import url(https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap);@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap);@import url(https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap);#particle-canvas,body::after,body::before{left:0;width:100%;height:100%;z-index:1;pointer-events:none;position:fixed;top:0}.delete-btn:hover,.flame-text{color:var(--flame-red)}.modal-content code,body,input,select,textarea{font-family:Inter,sans-serif}:root{--flame-red:#d62828;--lava-orange:#ff7a18;--gold:#fcbf49;--dark-stone:#1b1b1b;--deep-magma:#2b0000;--bright-gold:#ffd700;--ember-glow:#ff4500}*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{background:linear-gradient(180deg,var(--dark-stone) 0,var(--deep-magma) 100%);color:#fff;min-height:100vh;overflow-x:hidden;position:relative;display:flex;flex-direction:column;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}#bg-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}.bg-media{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;filter:brightness(.3) saturate(1.5) hue-rotate(10deg);transition:transform .5s,opacity .5s,filter .5s}#bg-video{opacity:.25;z-index:1}#bg-image{opacity:0;z-index:0}@media (min-width:1024px){.bg-media{width:100vh;height:100vw;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-90deg)}}body::before{content:'';background:radial-gradient(ellipse at 20% 30%,rgba(214,40,40,.2) 0,transparent 50%),radial-gradient(ellipse at 80% 70%,rgba(255,122,24,.15) 0,transparent 50%),radial-gradient(ellipse at 50% 50%,rgba(252,191,73,.1) 0,transparent 70%);animation:8s ease-in-out infinite magmaPulse}@keyframes magmaPulse{0%,100%{opacity:.6}50%{opacity:1}}body::after{content:'';background-image:linear-gradient(rgba(252,191,73,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,122,24,.03) 1px,transparent 1px);background-size:60px 60px;animation:25s linear infinite emberDrift}@keyframes emberDrift{0%{transform:translate(0,0)}100%{transform:translate(60px,60px)}}.content-layer{position:relative;z-index:10}main.content-layer{flex-grow:1}.font-cinzel{font-family:Cinzel,serif}.font-playfair{font-family:'Playfair Display',serif}.gold-text,.lava-text{color:var(--gold)}.epic-glitch{position:relative;font-family:Cinzel,serif;font-weight:900;letter-spacing:.08em}.navbar{background:rgba(27,27,27,.7);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border-bottom:2px solid rgba(252,191,73,.3);box-shadow:0 4px 30px rgba(214,40,40,.2);transition:.3s}#mobile-menu,.dropdown{background:rgba(27,27,27,.95)}.navbar .container>div{height:70px;transition:height .3s}@media (min-width:768px){.navbar .container>div{height:90px}}.nav-item{transition:.3s;position:relative;padding:.5rem 1rem}.btn-lava,.btn-secondary{font-family:Cinzel,serif;padding:.75rem 1.5rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;transition:.3s}.nav-item:hover i,.nav-item:hover span{color:var(--gold);text-shadow:0 0 15px var(--bright-gold)}.nav-item::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:0;height:3px;background:linear-gradient(90deg,var(--lava-orange),var(--gold));transition:width .3s;border-radius:2px;box-shadow:0 0 10px var(--gold)}.nav-item:hover::after{width:100%}.dropdown{display:none;position:absolute;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:2px solid var(--gold);box-shadow:0 10px 40px rgba(252,191,73,.3);border-radius:12px;margin-top:12px;animation:.3s dropFadeIn}.btn-lava,.time-container{border:2px solid var(--gold);overflow:hidden}@keyframes dropFadeIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}.group:hover .dropdown{display:block}#mobile-menu-overlay{position:fixed;inset:0;background:rgba(27,27,27,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:55;transition:opacity .3s}#mobile-menu{position:fixed;top:0;right:0;height:100%;width:80%;max-width:320px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-left:2px solid var(--gold);z-index:60;transform:translateX(100%);transition:transform .3s cubic-bezier(.175, .885, .32, 1.275);padding:2rem 1.5rem;display:flex;flex-direction:column}#mobile-menu.open{transform:translateX(0)}.btn-lava{background:linear-gradient(135deg,var(--lava-orange),var(--flame-red));border-radius:8px;position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;color:#fff;text-shadow:0 0 10px rgba(0,0,0,.5);box-shadow:0 0 20px rgba(255,122,24,.4)}.btn-lava::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(252,191,73,.6),transparent);transition:left .5s;z-index:-1;animation:3s ease-in-out infinite lavaFlow}@keyframes lavaFlow{0%,100%{left:-100%}50%{left:100%}}.btn-lava:hover{box-shadow:0 0 30px var(--gold),0 0 50px var(--lava-orange);transform:translateY(-3px);border-color:var(--bright-gold)}.btn-lava:active{transform:translateY(0) scale(.97);box-shadow:0 0 15px var(--gold);transition-duration:.1s}.btn-secondary{background:rgba(252,191,73,.1);border:2px solid rgba(252,191,73,.4);border-radius:8px;color:var(--gold)}.btn-secondary:hover{background:rgba(252,191,73,.2);border-color:var(--gold);box-shadow:0 0 20px rgba(252,191,73,.3)}.portal-card{background:rgba(43,0,0,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:2px solid;border-radius:16px;transition:.4s cubic-bezier(.175, .885, .32, 1.275);position:relative;overflow:hidden;box-shadow:0 5px 25px rgba(0,0,0,.6)}.portal-card:hover{transform:translateY(-10px);box-shadow:0 15px 40px rgba(0,0,0,.4),0 0 40px currentColor}.portal-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 30%,rgba(252,191,73,.1) 50%,transparent 70%);transform:rotate(45deg);animation:5s linear infinite goldShimmer;opacity:.8}@keyframes goldShimmer{0%{transform:translateX(-100%) translateY(-100%) rotate(45deg)}100%{transform:translateX(100%) translateY(100%) rotate(45deg)}}.delete-btn{position:absolute;top:12px;right:12px;color:rgba(214,40,40,.7);background:rgba(0,0,0,.4);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:.3s;z-index:20;opacity:.7;border:1px solid rgba(214,40,40,.5)}.portal-card:hover .delete-btn{opacity:1}.delete-btn:hover{background:rgba(0,0,0,.6);transform:scale(1.15);box-shadow:0 0 15px var(--flame-red)}.profile{margin:0 auto 2rem;width:160px;height:160px;border-radius:50%;overflow:hidden;border:4px solid var(--gold);position:relative}.profile img,.profile video{width:100%;height:100%;object-fit:cover;position:relative;z-index:1}.time-container{background:rgba(43,0,0,.7);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);box-shadow:0 0 30px rgba(252,191,73,.4),inset 0 0 25px rgba(255,122,24,.2);border-radius:12px;position:relative}.time-container::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(252,191,73,.3),transparent);animation:4s ease-in-out infinite timeScan}@keyframes timeScan{0%,100%{left:-100%}50%{left:100%}}.modal-overlay{background:rgba(27,27,27,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);animation:.3s modalFadeIn}.modal-content{background:rgba(43,0,0,.95);backdrop-filter:blur(25px);-webkit-backdrop-filter:blur(25px);border:2px solid var(--gold);box-shadow:0 0 50px rgba(252,191,73,.4);border-radius:16px;animation:.4s cubic-bezier(.175,.885,.32,1.275) modalSlideIn}@keyframes modalFadeIn{from{opacity:0}to{opacity:1}}@keyframes modalSlideIn{from{transform:translateY(-40px) scale(.9);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}input,select,textarea{background:rgba(27,27,27,.9)!important;border:2px solid rgba(252,191,73,.4);transition:.3s;border-radius:8px;color:#fff}input:focus,select:focus,textarea:focus{border-color:var(--gold);box-shadow:0 0 20px rgba(252,191,73,.5);outline:0;background:rgba(27,27,27,.95)!important}select option{background:var(--dark-stone);color:#fff;padding:10px}::placeholder{color:rgba(252,191,73,.5);opacity:1}.modal-content code{background:rgba(0,0,0,.4);color:var(--gold);padding:3px 6px;border-radius:4px}::-webkit-scrollbar{width:12px}::-webkit-scrollbar-track{background:rgba(27,27,27,.6)}::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--lava-orange),var(--gold));border-radius:6px}::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,var(--gold),var(--flame-red))}.logo-pulse{animation:4s ease-in-out infinite flamePulse}@keyframes flamePulse{0%,100%{transform:scale(1);filter:drop-shadow(0 0 15px var(--gold))}50%{transform:scale(1.15);filter:drop-shadow(0 0 30px var(--lava-orange))}}footer{background:rgba(27,27,27,.9);border-top:2px solid rgba(252,191,73,.3);margin-top:auto;height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 1rem;box-shadow:0 -4px 30px rgba(214,40,40,.2)}footer p:first-child{font-size:14px}.container{max-width:1200px;margin:0 auto;padding:0 1rem}.hidden{display:none}body.light-mode #bg-image{opacity:1!important;filter:saturate(1.15)}body.light-mode #bg-video{opacity:.35;z-index:1}
+        /* Import Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap');
+
+        /* Color Variables */
+        :root {
+            --flame-red: #d62828;
+            --lava-orange: #ff7a18;
+            --gold: #fcbf49;
+            --dark-stone: #1b1b1b;
+            --deep-magma: #2b0000;
+            --bright-gold: #ffd700;
+            --ember-glow: #ff4500;
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent; /* -- [BARU] Menghilangkan highlight biru di mobile -- */
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, var(--dark-stone) 0%, var(--deep-magma) 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Background Effects */
+        #bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-media {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.3) saturate(1.5) hue-rotate(10deg);
+            transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease;
+        }
+
+        #bg-video {
+            opacity: 0.25;
+            z-index: 1;
+        }
+        
+        #bg-image {
+            opacity: 0;
+            z-index: 0;
+        }
+
+        @media (min-width: 1024px) {
+            .bg-media {
+                width: 100vh;
+                height: 100vw;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-90deg);
+            }
+        }
+
+        /* Lava/Magma Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(214, 40, 40, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(255, 122, 24, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(252, 191, 73, 0.1) 0%, transparent 70%);
+            z-index: 1;
+            pointer-events: none;
+            animation: magmaPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes magmaPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Ember Particles Grid */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:  
+                linear-gradient(rgba(252, 191, 73, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 122, 24, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: 1;
+            pointer-events: none;
+            animation: emberDrift 25s linear infinite;
+        }
+
+        @keyframes emberDrift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .content-layer {
+            position: relative;
+            z-index: 10;
+        }
+
+        main.content-layer {
+            flex-grow: 1;
+        }
+
+        /* Typography */
+        .font-cinzel { font-family: 'Cinzel', serif; }
+        .font-playfair { font-family: 'Playfair Display', serif; }
+
+        .flame-text {
+            color: var(--flame-red);
+            /* text-shadow: 0 0 20px var(--ember-glow), 0 0 40px var(--flame-red); */ /* DIHAPUS: Efek dihapus */
+        }
+
+        .gold-text {
+            color: var(--gold);
+            /* text-shadow: 0 0 15px var(--bright-gold), 0 0 30px var(--gold); */ /* DIHAPUS: Efek dihapus */
+        }
+
+        .lava-text {
+            /* background: linear-gradient(135deg, var(--lava-orange), var(--flame-red), var(--gold)); */ /* DIHAPUS: Efek dihapus */
+            /* -webkit-background-clip: text; */ /* DIHAPUS: Efek dihapus */
+            /* -webkit-text-fill-color: transparent; */ /* DIHAPUS: Efek dihapus */
+            /* background-clip: text; */ /* DIHAPUS: Efek dihapus */
+            color: var(--gold); /* DIUBAH: Fallback ke warna gold polos */
+        }
+
+        /* Epic Glitch Effect */
+        .epic-glitch {
+            position: relative;
+            font-family: 'Cinzel', serif;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+        }
+
+        /* DIHAPUS: Efek glitch ::before dan ::after dihapus */
+        /* .epic-glitch::before, .epic-glitch::after { ... } */
+        /* .epic-glitch::before { ... } */
+        /* .epic-glitch::after { ... } */
+        /* @keyframes flameGlitch1 { ... } */
+        /* @keyframes flameGlitch2 { ... } */
+
+        /* Navbar */
+        .navbar {
+            background: rgba(27, 27, 27, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 2px solid rgba(252, 191, 73, 0.3);
+            box-shadow: 0 4px 30px rgba(214, 40, 40, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar .container > div {
+            height: 70px; /* DIUBAH: Dari 80px ke 70px untuk mobile */
+            transition: height 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .navbar .container > div {
+                height: 90px; /* Tetap 90px untuk desktop */
+            }
+        }
+
+        .nav-item {
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-item:hover span, .nav-item:hover i {
+            color: var(--gold);
+            text-shadow: 0 0 15px var(--bright-gold);
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--lava-orange), var(--gold));
+            transition: width 0.3s ease;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: rgba(27, 27, 27, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid var(--gold);
+            box-shadow: 0 10px 40px rgba(252, 191, 73, 0.3);
+            border-radius: 12px;
+            margin-top: 12px;
+            animation: dropFadeIn 0.3s ease;
+        }
+
+        @keyframes dropFadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .group:hover .dropdown {
+            display: block;
+        }
+
+        /* Mobile Menu */
+        #mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(27, 27, 27, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 55;
+            transition: opacity 0.3s ease;
+        }
+
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100%;
+            width: 80%;
+            max-width: 320px;
+            background: rgba(27, 27, 27, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-left: 2px solid var(--gold);
+            z-index: 60;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        /* Lava Glow Buttons */
+        .btn-lava {
+            font-family: 'Cinzel', serif;
+            background: linear-gradient(135deg, var(--lava-orange), var(--flame-red));
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 122, 24, 0.4);
+        }
+
+        .btn-lava::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(252, 191, 73, 0.6), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+            animation: lavaFlow 3s ease-in-out infinite;
+        }
+
+        @keyframes lavaFlow {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        .btn-lava:hover {
+            box-shadow: 0 0 30px var(--gold), 0 0 50px var(--lava-orange);
+            transform: translateY(-3px);
+            border-color: var(--bright-gold);
+        }
+
+        .btn-lava:active {
+            transform: translateY(0) scale(0.97);
+            box-shadow: 0 0 15px var(--gold);
+            transition-duration: 0.1s;
+        }
+
+        .btn-secondary {
+            font-family: 'Cinzel', serif;
+            background: rgba(252, 191, 73, 0.1);
+            border: 2px solid rgba(252, 191, 73, 0.4);
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            color: var(--gold);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(252, 191, 73, 0.2);
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(252, 191, 73, 0.3);
+        }
+
+        /* Portal Cards */
+        .portal-card {
+            background: rgba(43, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 2px solid;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .portal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 40px currentColor;
+        }
+
+        .portal-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(252, 191, 73, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg);
+            animation: goldShimmer 5s linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes goldShimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            color: rgba(214, 40, 40, 0.7);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 20;
+            opacity: 0.7;
+            border: 1px solid rgba(214, 40, 40, 0.5);
+        }
+
+        .portal-card:hover .delete-btn {
+            opacity: 1;
+        }
+
+        .delete-btn:hover {
+            color: var(--flame-red);
+            background: rgba(0, 0, 0, 0.6);
+            transform: scale(1.15);
+            box-shadow: 0 0 15px var(--flame-red);
+        }
+
+        /* Profile/Avatar */
+        .profile {
+            margin: 0 auto 2rem;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--gold);
+            /* box-shadow: 0 0 40px var(--gold), 0 0 60px var(--lava-orange), inset 0 0 30px rgba(252, 191, 73, 0.3); */ /* DIHAPUS: Efek dihapus */
+            /* transition: all 0.4s ease; */ /* DIHAPUS: Efek dihapus */
+            position: relative;
+        }
+
+        /* DIHAPUS: Efek orbitalFlame */
+        /* .profile::before { ... } */
+        /* @keyframes orbitalFlame { ... } */
+
+        /* DIHAPUS: Efek hover */
+        /* .profile:hover { ... } */
+
+        .profile img, .profile video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Time Display */
+        .time-container {
+            background: rgba(43, 0, 0, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 30px rgba(252, 191, 73, 0.4), inset 0 0 25px rgba(255, 122, 24, 0.2);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .time-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(252, 191, 73, 0.3), transparent);
+            animation: timeScan 4s ease-in-out infinite;
+        }
+
+        @keyframes timeScan {
+            0%, 100% { left: -100%; }
+            50% { left: 100%; }
+        }
+
+        /* Modals */
+        .modal-overlay {
+            background: rgba(27, 27, 27, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: rgba(43, 0, 0, 0.95);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 2px solid var(--gold);
+            box-shadow: 0 0 50px rgba(252, 191, 73, 0.4);
+            border-radius: 16px;
+            animation: modalSlideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-40px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* Inputs */
+        input, textarea, select {
+            background: rgba(27, 27, 27, 0.9) !important;
+            border: 2px solid rgba(252, 191, 73, 0.4);
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(252, 191, 73, 0.5);
+            outline: none;
+            background: rgba(27, 27, 27, 0.95) !important;
+        }
+
+        select option {
+            background: var(--dark-stone);
+            color: #fff;
+            padding: 10px;
+        }
+
+        ::placeholder {
+            color: rgba(252, 191, 73, 0.5);
+            opacity: 1;
+        }
+
+        .modal-content code {
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--gold);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 12px; }
+        ::-webkit-scrollbar-track { background: rgba(27, 27, 27, 0.6); }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--lava-orange), var(--gold));
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--gold), var(--flame-red));
+        }
+
+        /* Logo Animation */
+        .logo-pulse {
+            animation: flamePulse 4s ease-in-out infinite;
+        }
+
+        @keyframes flamePulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: drop-shadow(0 0 15px var(--gold));
+            }
+            50% {
+                transform: scale(1.15);
+                filter: drop-shadow(0 0 30px var(--lava-orange));
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(27, 27, 27, 0.9);
+            border-top: 2px solid rgba(252, 191, 73, 0.3);
+            margin-top: auto;
+            height: 70px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1rem;
+            box-shadow: 0 -4px 30px rgba(214, 40, 40, 0.2);
+        }
+
+        footer p:first-child {
+            font-size: 14px;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .hidden { display: none; }
+
+        /* --- [BARU] Fitur Light Mode --- */
+        /* Sesuai permintaan: Video tetap sama, gambar menjadi terang */
+        body.light-mode #bg-image {
+            /* Paksa override inline style (0.35) yang diatur JS saat video berakhir */
+            opacity: 1 !important; 
+            filter: saturate(1.15);
+        }
+        body.light-mode #bg-video {
+            /* Video tetap seperti semula */
+            opacity: 0.35;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
@@ -42,36 +650,37 @@
                 <!-- Desktop Nav -->
                 <div style="display: none;" class="desktop-nav">
                     <div class="nav-item relative group" style="display: inline-block; position: relative;">
-                         <!-- DIUBAH: Dikembalikan ke flame-text -->
-                        <button class="flame-text" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.875rem; text-transform: uppercase;">
-                            <i class="fas fa-fire"></i>
-                            <span>Forge</span>
-                            <i class="fas fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s;"></i>
-                        </button>
-                        <div class="dropdown" style="position: absolute; right: 0; width: 320px; padding: 1.5rem; margin-top: 0.75rem;">
-                            <!-- DIUBAH: Hapus class 'flame-text' dan tambahkan 'color: var(--gold);' -->
-                            <h3 class="font-cinzel" style="font-size: 0.875rem; mar
-                            
-                            <button onclick="showAddLinkModal()" class="btn-secondary" style="width: 100%; font-size: 0.875rem; margin-bottom: 1rem;">
-                                <i class="fas fa-plus" style="margin-right: 0.5rem;"></i>Add Portal
+                            <!-- DIUBAH: Dikembalikan ke flame-text -->
+                            <button class="flame-text" style="display: flex; align-items: center; gap: 0.5rem; background: none; border: none; cursor: pointer; font-family: 'Cinzel', serif; font-size: 0.875rem; text-transform: uppercase;">
+                                <i class="fas fa-fire"></i>
+                                <span>Forge</span>
+                                <i class="fas fa-chevron-down" style="font-size: 0.75rem; transition: transform 0.3s;"></i>
                             </button>
+                            <div class="dropdown" style="position: absolute; right: 0; width: 320px; padding: 1.5rem; margin-top: 0.75rem;">
+                                <!-- DIUBAH: Hapus class 'flame-text' dan tambahkan 'color: var(--gold);' -->
+                                <!-- ===== [PERBAIKAN] Tag h3 yang rusak di bawah ini telah diperbaiki ===== -->
+                                <h3 class="font-cinzel" style="font-size: 0.875rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Create Portal</h3>
+                                
+                                <button onclick="showAddLinkModal()" class="btn-secondary" style="width: 100%; font-size: 0.875rem; margin-bottom: 1rem;">
+                                    <i class="fas fa-plus" style="margin-right: 0.5rem;"></i>Add Portal
+                                </button>
 
-                            <!-- DIUBAH: Hapus class 'gold-text' dan tambahkan 'color: var(--gold);' -->
-                            <h3 class="font-cinzel" style="font-size: 0.875rem; margin-top: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Data Vault</h3>
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+                                <!-- DIUBAH: Hapus class 'gold-text' dan tambahkan 'color: var(--gold);' -->
+                                <h3 class="font-cinzel" style="font-size: 0.875rem; margin-top: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Data Vault</h3>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem;">
+                                    <!-- DIUBAH: class="btn-lava" menjadi "btn-secondary" -->
+                                    <button onclick="importData()" class="btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.5rem 1rem;"><i class="fas fa-upload" style="margin-right: 0.25rem;"></i>Import</button>
+                                    <!-- DIUBAH: class="btn-lava" menjadi "btn-secondary" -->
+                                    <button onclick="backupData()" class="btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.5rem 1rem;"><i class="fas fa-download" style="margin-right: 0.25rem;"></i>Backup</button>
+                                </div>
+
+                                <!-- DIUBAH: Hapus class 'flame-text' dan tambahkan 'color: var(--gold);' -->
+                                <h3 class="font-cinzel" style="font-size: 0.875rem; margin-top: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Purge System</h3>
                                 <!-- DIUBAH: class="btn-lava" menjadi "btn-secondary" -->
-                                <button onclick="importData()" class="btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.5rem 1rem;"><i class="fas fa-upload" style="margin-right: 0.25rem;"></i>Import</button>
-                                <!-- DIUBAH: class="btn-lava" menjadi "btn-secondary" -->
-                                <button onclick="backupData()" class="btn-secondary" style="width: 100%; font-size: 0.75rem; padding: 0.5rem 1rem;"><i class="fas fa-download" style="margin-right: 0.25rem;"></i>Backup</button>
+                                <button onclick="showConfirmationModal('Unleash the reset flame?', resetAllSettings)" class="btn-secondary" style="width: 100%; font-size: 0.875rem;">
+                                    <i class="fas fa-skull-crossbones" style="margin-right: 0.5rem;"></i>Reset All
+                                </button>
                             </div>
-
-                            <!-- DIUBAH: Hapus class 'flame-text' dan tambahkan 'color: var(--gold);' -->
-                            <h3 class="font-cinzel" style="font-size: 0.875rem; margin-top: 1.5rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gold);">Purge System</h3>
-                            <!-- DIUBAH: class="btn-lava" menjadi "btn-secondary" -->
-                            <button onclick="showConfirmationModal('Unleash the reset flame?', resetAllSettings)" class="btn-secondary" style="width: 100%; font-size: 0.875rem;">
-                                <i class="fas fa-skull-crossbones" style="margin-right: 0.5rem;"></i>Reset All
-                            </button>
-                        </div>
                     </div>
                 </div>
 
@@ -260,7 +869,323 @@
     <input type="file" id="import-file-input" class="hidden" style="display: none;" accept=".zip,.txt,application/json">
 
     <script>
-        const _0x32bb92=_0x4441;function _0x4441(_0x264dca,_0x502531){const _0x2152e7=_0x87b7();return _0x4441=function(_0x19cc0a,_0x532478){_0x19cc0a=_0x19cc0a-0x169;let _0x42fa5e=_0x2152e7[_0x19cc0a];return _0x42fa5e;},_0x4441(_0x264dca,_0x502531);}(function(_0x289df7,_0x1a9704){const _0xe3385=_0x4441,_0x34c5ce=_0x289df7();while(!![]){try{const _0x2eaff3=parseInt(_0xe3385(0x196))/0x1*(-parseInt(_0xe3385(0x1ec))/0x2)+-parseInt(_0xe3385(0x198))/0x3*(parseInt(_0xe3385(0x1f4))/0x4)+-parseInt(_0xe3385(0x19c))/0x5*(parseInt(_0xe3385(0x175))/0x6)+-parseInt(_0xe3385(0x1bd))/0x7+parseInt(_0xe3385(0x17e))/0x8*(-parseInt(_0xe3385(0x17d))/0x9)+parseInt(_0xe3385(0x1ba))/0xa*(parseInt(_0xe3385(0x1f8))/0xb)+-parseInt(_0xe3385(0x1ad))/0xc*(-parseInt(_0xe3385(0x20e))/0xd);if(_0x2eaff3===_0x1a9704)break;else _0x34c5ce['push'](_0x34c5ce['shift']());}catch(_0x5e2bfc){_0x34c5ce['push'](_0x34c5ce['shift']());}}}(_0x87b7,0xc1004));function _0x87b7(){const _0x216cfd=['showAddLinkModal','Error\x20reading\x20ZIP:','8814890XgDfQp','Autoplay\x20blocked:','uranusfazry_backup.json','__proto__','\x22\x20style=\x22margin:\x200\x20auto\x201rem;\x20height:\x203rem;\x20width:\x203rem;\x20object-fit:\x20contain;\x22\x20alt=\x22','color:\x20','#ff7a18','bind','trace','mobile-menu-button','Invalid\x20backup\x20format.','add-portal-modal','download','remove','mobile-menu-overlay','Upgrade\x20sekarang\x20—\x20akses\x20semua\x20website\x20uranus\x20tanpa\x20iklan\x20cuma\x20Rp25K','https://api.whatsapp.com/send/?phone=6287872521809&text=Halo%2C+saya+ingin+membeli+Kode+Website+MLBB+Bane+Skin+Lord+Of+Scalding+Seas+sebesar+Rp100.000.+Mohon+transfer+ke+DANA+087734421123+dan+kirimkan+bukti+pembayarannya.+Pesanan+akan+diproses+maksimal+1x24+jam.+Terima+kasih.&type=phone_number&app_absent=0','search','toggle','block','warn','type','contains','en-GB','hidden','?\x27,\x20()\x20=>\x20deletePortalAction(','parse','appendChild','resetAllSettings','submit','onload','portals','endsWith','portal-url','Backup\x20failed.','querySelector','fas\x20fa-gem','div','.zip','portal-icon','toString','Data\x20imported.\x20Page\x20will\x20reload.','Error\x20parsing\x20backup:','url','\x22></i>','</h3>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<p\x20style=\x22font-size:\x200.875rem;\x20color:\x20rgba(252,\x20191,\x2073,\x200.8);\x20margin-top:\x200.5rem;\x20line-height:\x201.4;\x22>','style','125778yJzilZ','https://api.whatsapp.com/send/?phone=6287872521809&text=Halo%2C+saya+ingin+membeli+Akses+Website+Premium+Tanpa+Iklan+sebesar+Rp25.000.+Mohon+transfer+ke+DANA+087734421123+dan+kirimkan+bukti+pembayarannya.+Pesanan+akan+diproses+maksimal+1x24+jam.+Terima+kasih.&type=phone_number&app_absent=0','async','height','light-mode','stringify','uranusfazry_backup.zip','classList','12jrGhmI','bg-video','constructor','Unsupported\x20file\x20type.','5467xyXGST','(((.+)+)+)+$','textContent','value','.desktop-nav','#fcbf49','none','portal-name','confirm-cancel-btn','error','\x22\x20style=\x22font-size:\x203rem;\x20margin-bottom:\x201rem;\x20','<i\x20class=\x22','string','href','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<h3\x20class=\x22font-cinzel\x22\x20style=\x22font-weight:\x20700;\x20text-transform:\x20uppercase;\x20letter-spacing:\x200.05em;\x20word-break:\x20break-word;\x20font-size:\x201.125rem;\x20margin-bottom:\x200.5rem;\x20','data:image','loadAsync','flex','date','forEach','target','isArray','754XqzKhk','\x22\x20target=\x22_blank\x22\x20style=\x22display:\x20block;\x20height:\x20100%;\x20padding:\x201.5rem;\x20text-align:\x20center;\x20position:\x20relative;\x20text-decoration:\x20none;\x20color:\x20inherit;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20style=\x22position:\x20relative;\x20z-index:\x2010;\x20display:\x20flex;\x20flex-direction:\x20column;\x20align-items:\x20center;\x20justify-content:\x20center;\x20height:\x20100%;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','showConfirmationModal','result','input[name=\x22portal-color\x22]:checked','DEFLATE','ended','length','getElementById','bg-image','console','.mobile-nav-toggle','body','8944764AITjKA','log','confirmation-message','\x20icon\x22\x20onerror=\x22this.style.display=\x27none\x27;\x20this.nextSibling.style.display=\x27block\x27;\x22><i\x20class=\x22fas\x20fa-fire\x22\x20style=\x22font-size:\x203rem;\x20margin-bottom:\x201rem;\x20display:\x20none;\x20','confirmation-modal','Failed\x20to\x20parse\x20backup\x20file.','startsWith','id-ID','2196rlSwIc','6728paUDup','click','http','portal-description','<img\x20src=\x22','innerHTML','application/json','getItem','import-file-input','createElement','push','DOMContentLoaded','innerWidth','toLocaleDateString','opacity','fas\x20fa-fire','Bane\x20Premium\x20Access','generateAsync','application/zip','backupData','name','numeric','0.35','open','22dnaAbr','portals-grid','1121154zHHwLl','portal-form','icon','apply','5HGSWSC','overflow','add','text/plain','function','Error\x20creating\x20ZIP:','setItem','</p>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<button\x20onclick=\x22event.preventDefault();\x20event.stopPropagation();\x20showConfirmationModal(\x27Destroy\x20portal\x20','readAsText','removeChild','description','long','exception','addEventListener','toLocaleTimeString','revokeObjectURL','closeMobileMenu','1180716urUsJk','file','mobile-menu','display','Buy\x20Bane\x20Lord\x20Of\x20Scalding\x20Seas','return\x20(function()\x20','time','change','catch','removeItem','logo-container','createObjectURL','splice','10940muVFFD'];_0x87b7=function(){return _0x216cfd;};return _0x87b7();}const _0x3bc163=(function(){let _0xdc714b=!![];return function(_0x478c1b,_0x4c76eb){const _0x4f2257=_0xdc714b?function(){if(_0x4c76eb){const _0x444248=_0x4c76eb['apply'](_0x478c1b,arguments);return _0x4c76eb=null,_0x444248;}}:function(){};return _0xdc714b=![],_0x4f2257;};}()),_0x2d909c=_0x3bc163(this,function(){const _0x3fb777=_0x4441;return _0x2d909c[_0x3fb777(0x1e5)]()['search'](_0x3fb777(0x1f9))[_0x3fb777(0x1e5)]()[_0x3fb777(0x1f6)](_0x2d909c)[_0x3fb777(0x1ce)](_0x3fb777(0x1f9));});_0x2d909c();const _0x532478=(function(){let _0x44e2b3=!![];return function(_0x2713aa,_0x421b12){const _0x20aec1=_0x44e2b3?function(){const _0x449572=_0x4441;if(_0x421b12){const _0x4b1a93=_0x421b12[_0x449572(0x19b)](_0x2713aa,arguments);return _0x421b12=null,_0x4b1a93;}}:function(){};return _0x44e2b3=![],_0x20aec1;};}()),_0x19cc0a=_0x532478(this,function(){const _0x70cd3c=_0x4441,_0x17e3e3=function(){const _0xfe8f28=_0x4441;let _0x4fceb6;try{_0x4fceb6=Function(_0xfe8f28(0x1b2)+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(_0x1d18eb){_0x4fceb6=window;}return _0x4fceb6;},_0x3fea0c=_0x17e3e3(),_0x30b975=_0x3fea0c[_0x70cd3c(0x172)]=_0x3fea0c[_0x70cd3c(0x172)]||{},_0x1afa0a=[_0x70cd3c(0x176),_0x70cd3c(0x1d1),'info','error',_0x70cd3c(0x1a8),'table',_0x70cd3c(0x1c5)];for(let _0x21a4e1=0x0;_0x21a4e1<_0x1afa0a[_0x70cd3c(0x16f)];_0x21a4e1++){const _0x3909b9=_0x532478['constructor']['prototype']['bind'](_0x532478),_0x3fca26=_0x1afa0a[_0x21a4e1],_0x212169=_0x30b975[_0x3fca26]||_0x3909b9;_0x3909b9[_0x70cd3c(0x1c0)]=_0x532478[_0x70cd3c(0x1c4)](_0x532478),_0x3909b9['toString']=_0x212169[_0x70cd3c(0x1e5)][_0x70cd3c(0x1c4)](_0x212169),_0x30b975[_0x3fca26]=_0x3909b9;}});_0x19cc0a(),document[_0x32bb92(0x1a9)](_0x32bb92(0x189),function(){const _0x182b06=_0x32bb92;let _0x3a4ef9=![];const _0x1e62fe=document[_0x182b06(0x170)](_0x182b06(0x1f5)),_0xdc052d=document['getElementById'](_0x182b06(0x171));if(_0x1e62fe&&_0xdc052d){const _0x7df54e=()=>{const _0x184d8b=_0x182b06;_0x1e62fe[_0x184d8b(0x1eb)][_0x184d8b(0x18c)]='0',!document[_0x184d8b(0x174)][_0x184d8b(0x1f3)][_0x184d8b(0x1d3)](_0x184d8b(0x1f0))&&(_0xdc052d['style'][_0x184d8b(0x18c)]=_0x184d8b(0x194)),_0x3a4ef9=!![];},_0x23c897=_0x50d040=>{const _0x2e157c=_0x182b06;console[_0x2e157c(0x201)]('Video\x20background\x20failed:',_0x50d040),_0x7df54e();};_0x1e62fe[_0x182b06(0x1a9)](_0x182b06(0x16e),_0x7df54e),_0x1e62fe[_0x182b06(0x1a9)]('error',_0x23c897);const _0x5f1521=_0x1e62fe['play']();_0x5f1521!==undefined&&_0x5f1521[_0x182b06(0x1b5)](_0x36a516=>{const _0x43613e=_0x182b06;console[_0x43613e(0x1d1)](_0x43613e(0x1be),_0x36a516),_0x7df54e();});}const _0x2adbe3=document[_0x182b06(0x170)](_0x182b06(0x1b7)),_0x129316=document[_0x182b06(0x170)](_0x182b06(0x197)),_0x49434c=document[_0x182b06(0x170)](_0x182b06(0x199)),_0x1d7478=document[_0x182b06(0x170)](_0x182b06(0x1c6)),_0xd763a9=document[_0x182b06(0x170)](_0x182b06(0x1af)),_0x106e1f=document[_0x182b06(0x170)](_0x182b06(0x1cb)),_0x57a8ae=document[_0x182b06(0x170)](_0x182b06(0x1b3)),_0x1ffe62=document[_0x182b06(0x170)](_0x182b06(0x20a)),_0x10a0b8=document[_0x182b06(0x170)](_0x182b06(0x186)),_0x211a3c=document[_0x182b06(0x170)](_0x182b06(0x179)),_0x468096=document[_0x182b06(0x170)](_0x182b06(0x177)),_0xe71ad1=document[_0x182b06(0x170)]('confirm-ok-btn'),_0x65981c=document[_0x182b06(0x170)](_0x182b06(0x200));let _0x3fd5bd=[],_0x184047=null;const _0x19474c=[{'name':_0x182b06(0x18e),'url':_0x182b06(0x1ed),'icon':_0x182b06(0x1e1),'color':_0x182b06(0x1fd),'description':_0x182b06(0x1cc)},{'name':_0x182b06(0x1b1),'url':_0x182b06(0x1cd),'icon':_0x182b06(0x18d),'color':_0x182b06(0x1c3),'description':'Beli\x20kode\x20website\x20MLBB\x20Bane\x20Lord\x20Of\x20Scalding\x20Seas\x20edisi\x20premium\x20seharga\x20Rp100K'}];function _0x3aef77(){const _0x5ae87e=_0x182b06;_0x3fd5bd=JSON[_0x5ae87e(0x1d7)](localStorage['getItem']('portals'))||_0x19474c,_0x5842d2(),_0xee21e8(),setInterval(_0xee21e8,0x3e8),_0x2adbe3[_0x5ae87e(0x1a9)]('click',()=>{const _0x4ca8e6=_0x5ae87e;if(!_0x3a4ef9){console['log']('Light\x20mode\x20locked\x20until\x20video\x20ends.');return;}document[_0x4ca8e6(0x174)][_0x4ca8e6(0x1f3)][_0x4ca8e6(0x1cf)]('light-mode'),!document[_0x4ca8e6(0x174)][_0x4ca8e6(0x1f3)]['contains'](_0x4ca8e6(0x1f0))&&_0x1e62fe[_0x4ca8e6(0x1eb)][_0x4ca8e6(0x18c)]==='0'&&(_0xdc052d[_0x4ca8e6(0x1eb)][_0x4ca8e6(0x18c)]='0.35');}),_0x1d7478[_0x5ae87e(0x1a9)](_0x5ae87e(0x17f),()=>{const _0x457f8c=_0x5ae87e;_0xd763a9[_0x457f8c(0x1f3)]['add'](_0x457f8c(0x195)),_0x106e1f[_0x457f8c(0x1f3)][_0x457f8c(0x1ca)](_0x457f8c(0x1d5)),_0x106e1f[_0x457f8c(0x1eb)][_0x457f8c(0x1b0)]='block',document['body'][_0x457f8c(0x1eb)][_0x457f8c(0x19d)]='hidden';}),_0x106e1f[_0x5ae87e(0x1a9)](_0x5ae87e(0x17f),closeMobileMenu),_0x49434c[_0x5ae87e(0x1a9)](_0x5ae87e(0x1da),_0x4f554c),_0x10a0b8['addEventListener'](_0x5ae87e(0x1b4),_0x39d4e8),_0x65981c[_0x5ae87e(0x1a9)](_0x5ae87e(0x17f),()=>{const _0x5b807d=_0x5ae87e;_0x211a3c[_0x5b807d(0x1f3)]['add']('hidden'),_0x211a3c[_0x5b807d(0x1eb)][_0x5b807d(0x1b0)]=_0x5b807d(0x1fe);}),_0xe71ad1[_0x5ae87e(0x1a9)](_0x5ae87e(0x17f),()=>{const _0x2d2754=_0x5ae87e;typeof _0x184047===_0x2d2754(0x1a0)&&_0x184047(),_0x211a3c[_0x2d2754(0x1f3)][_0x2d2754(0x19e)](_0x2d2754(0x1d5)),_0x211a3c[_0x2d2754(0x1eb)][_0x2d2754(0x1b0)]=_0x2d2754(0x1fe),_0x184047=null;}),window[_0x5ae87e(0x1a9)]('resize',_0x229851),_0x229851();}function _0x229851(){const _0x202dfb=_0x182b06,_0x1b3b64=document[_0x202dfb(0x1e0)](_0x202dfb(0x1fc)),_0x454137=document['querySelector'](_0x202dfb(0x173));if(window[_0x202dfb(0x18a)]>=0x300){if(_0x1b3b64)_0x1b3b64['style']['display']=_0x202dfb(0x1d0);if(_0x454137)_0x454137[_0x202dfb(0x1eb)][_0x202dfb(0x1b0)]=_0x202dfb(0x1fe);}else{if(_0x1b3b64)_0x1b3b64[_0x202dfb(0x1eb)][_0x202dfb(0x1b0)]='none';if(_0x454137)_0x454137[_0x202dfb(0x1eb)][_0x202dfb(0x1b0)]=_0x202dfb(0x1d0);}}window[_0x182b06(0x1ac)]=function(){const _0x5feecd=_0x182b06;_0xd763a9[_0x5feecd(0x1f3)][_0x5feecd(0x1ca)](_0x5feecd(0x195)),_0x106e1f['classList'][_0x5feecd(0x19e)](_0x5feecd(0x1d5)),_0x106e1f[_0x5feecd(0x1eb)][_0x5feecd(0x1b0)]='none',document[_0x5feecd(0x174)][_0x5feecd(0x1eb)][_0x5feecd(0x19d)]='';},window[_0x182b06(0x16a)]=function(_0x309c36,_0xb5fd4c){const _0x462692=_0x182b06;_0x468096[_0x462692(0x1fa)]=_0x309c36,_0x184047=_0xb5fd4c,_0x211a3c[_0x462692(0x1f3)]['remove'](_0x462692(0x1d5)),_0x211a3c['style'][_0x462692(0x1b0)]=_0x462692(0x209);};function _0x5842d2(){const _0x3b1c01=_0x182b06;_0x129316['innerHTML']='',_0x3fd5bd[_0x3b1c01(0x20b)]((_0x4b450a,_0x497099)=>{const _0x584485=_0x3b1c01,_0x1f7d19=document[_0x584485(0x187)](_0x584485(0x1e2));_0x1f7d19['style'][_0x584485(0x1ef)]='100%';const _0x104a64=_0x4b450a['color']||_0x584485(0x1c3),_0x573086=_0x584485(0x1c2)+_0x104a64+';\x20border-color:\x20'+_0x104a64+';',_0x3ab2a3='color:\x20'+_0x104a64+';\x20text-shadow:\x200\x200\x2015px\x20'+_0x104a64+';';let _0x3d9eff=_0x4b450a[_0x584485(0x19a)]||_0x584485(0x18d);(!_0x4b450a[_0x584485(0x19a)]||!_0x4b450a['icon'][_0x584485(0x17b)]('fa')&&!_0x4b450a['icon'][_0x584485(0x17b)](_0x584485(0x180))&&!_0x4b450a[_0x584485(0x19a)][_0x584485(0x17b)](_0x584485(0x207)))&&(_0x3d9eff='fas\x20fa-fire');const _0x422d5d=_0x3d9eff['startsWith']('data:image')||_0x3d9eff[_0x584485(0x17b)](_0x584485(0x180))?_0x584485(0x182)+_0x3d9eff+_0x584485(0x1c1)+_0x4b450a[_0x584485(0x192)]+_0x584485(0x178)+_0x3ab2a3+'\x22></i>':_0x584485(0x203)+_0x3d9eff+_0x584485(0x202)+_0x3ab2a3+_0x584485(0x1e9),_0x4e8eb4=_0x4b450a[_0x584485(0x1a6)]?_0x4b450a['description']:'&nbsp;';_0x1f7d19[_0x584485(0x183)]='\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<div\x20class=\x22portal-card\x22\x20style=\x22'+_0x573086+'\x20height:\x20100%;\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<a\x20href=\x22'+_0x4b450a[_0x584485(0x1e8)]+_0x584485(0x169)+_0x422d5d+_0x584485(0x206)+_0x3ab2a3+'\x22>'+_0x4b450a['name']+_0x584485(0x1ea)+_0x4e8eb4+_0x584485(0x1a3)+_0x4b450a[_0x584485(0x192)]+_0x584485(0x1d6)+_0x497099+'))\x22\x20class=\x22delete-btn\x22>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20<i\x20class=\x22fas\x20fa-times\x22\x20style=\x22font-size:\x200.875rem;\x22></i>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</button>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</a>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20</div>\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20',_0x129316[_0x584485(0x1d8)](_0x1f7d19);});}function _0x4f554c(_0x4f588d){const _0x4c0bf6=_0x182b06;_0x4f588d['preventDefault']();const _0x304730=document[_0x4c0bf6(0x170)](_0x4c0bf6(0x1ff))[_0x4c0bf6(0x1fb)],_0x26f7b2=document[_0x4c0bf6(0x170)](_0x4c0bf6(0x1de))['value']||'#',_0x441844=document[_0x4c0bf6(0x170)](_0x4c0bf6(0x181))[_0x4c0bf6(0x1fb)]||'',_0x4b2d49=document[_0x4c0bf6(0x170)](_0x4c0bf6(0x1e4))[_0x4c0bf6(0x1fb)],_0x126477=document[_0x4c0bf6(0x1e0)](_0x4c0bf6(0x16c))[_0x4c0bf6(0x1fb)];_0x4a5aeb(_0x304730,_0x26f7b2,_0x4b2d49,_0x126477,_0x441844);}function _0x4a5aeb(_0x33aeab,_0x2e21ea,_0x23bf56,_0x50e71d,_0x499cfa){const _0x5eedec=_0x182b06;_0x3fd5bd[_0x5eedec(0x188)]({'name':_0x33aeab,'url':_0x2e21ea,'icon':_0x23bf56,'color':_0x50e71d,'description':_0x499cfa}),_0x253c04(),_0x5842d2(),document[_0x5eedec(0x170)](_0x5eedec(0x1c8))[_0x5eedec(0x1f3)][_0x5eedec(0x19e)]('hidden'),document['getElementById'](_0x5eedec(0x1c8))[_0x5eedec(0x1eb)][_0x5eedec(0x1b0)]=_0x5eedec(0x1fe),_0x3f820b();}window['deletePortalAction']=function(_0x4be0c5){const _0x8ef729=_0x182b06;_0x3fd5bd[_0x8ef729(0x1b9)](_0x4be0c5,0x1),_0x253c04(),_0x5842d2();};function _0x3f820b(){_0x49434c['reset']();}function _0x253c04(){const _0x599585=_0x182b06;localStorage[_0x599585(0x1a2)](_0x599585(0x1dc),JSON[_0x599585(0x1f1)](_0x3fd5bd));}window[_0x182b06(0x1bb)]=function(){const _0x373a1f=_0x182b06;document[_0x373a1f(0x170)](_0x373a1f(0x1c8))[_0x373a1f(0x1f3)]['remove'](_0x373a1f(0x1d5)),document[_0x373a1f(0x170)](_0x373a1f(0x1c8))[_0x373a1f(0x1eb)][_0x373a1f(0x1b0)]='flex',_0x3f820b(),_0xd763a9[_0x373a1f(0x1f3)]['contains'](_0x373a1f(0x195))&&closeMobileMenu();};function _0xee21e8(){const _0x56dd7c=_0x182b06,_0x5553c0=new Date();_0x57a8ae[_0x56dd7c(0x1fa)]=_0x5553c0[_0x56dd7c(0x1aa)](_0x56dd7c(0x1d4)),_0x1ffe62['textContent']=_0x5553c0[_0x56dd7c(0x18b)](_0x56dd7c(0x17c),{'weekday':'long','year':_0x56dd7c(0x193),'month':_0x56dd7c(0x1a7),'day':_0x56dd7c(0x193)});}window[_0x182b06(0x1d9)]=function(){const _0xabf466=_0x182b06;localStorage[_0xabf466(0x1b6)](_0xabf466(0x1dc)),location['reload']();},window[_0x182b06(0x191)]=async()=>{const _0x55747b=_0x182b06,_0x2fdc29={'portals':JSON['parse'](localStorage[_0x55747b(0x185)](_0x55747b(0x1dc)))||_0x19474c},_0x23f099=JSON[_0x55747b(0x1f1)](_0x2fdc29,null,0x2);try{const _0x3e59e3=new JSZip();_0x3e59e3[_0x55747b(0x1ae)](_0x55747b(0x1bf),_0x23f099);const _0x390498=await _0x3e59e3[_0x55747b(0x18f)]({'type':'blob','compression':_0x55747b(0x16d)}),_0x32ff17=URL[_0x55747b(0x1b8)](_0x390498),_0x373627=document['createElement']('a');_0x373627[_0x55747b(0x205)]=_0x32ff17,_0x373627[_0x55747b(0x1c9)]=_0x55747b(0x1f2),document[_0x55747b(0x174)][_0x55747b(0x1d8)](_0x373627),_0x373627[_0x55747b(0x17f)](),document[_0x55747b(0x174)][_0x55747b(0x1a5)](_0x373627),URL[_0x55747b(0x1ab)](_0x32ff17);}catch(_0x32d215){console['error'](_0x55747b(0x1a1),_0x32d215),alert(_0x55747b(0x1df));}},window['importData']=()=>{const _0x512309=_0x182b06;_0x10a0b8[_0x512309(0x17f)]();};async function _0x39d4e8(_0x297bdd){const _0x2e9473=_0x182b06,_0x4478e7=_0x297bdd['target']['files'][0x0];if(!_0x4478e7)return;if(_0x4478e7[_0x2e9473(0x1d2)]===_0x2e9473(0x190)||_0x4478e7[_0x2e9473(0x192)][_0x2e9473(0x1dd)](_0x2e9473(0x1e3))){const _0x20dcbb=new FileReader();_0x20dcbb[_0x2e9473(0x1db)]=async _0xebc95=>{const _0x239b2f=_0x2e9473;try{const _0x40c17d=await JSZip[_0x239b2f(0x208)](_0xebc95['target'][_0x239b2f(0x16b)]),_0x597859=_0x40c17d[_0x239b2f(0x1ae)](_0x239b2f(0x1bf));if(_0x597859){const _0x4c91cb=await _0x597859[_0x239b2f(0x1ee)](_0x239b2f(0x204));await _0x35d66a(_0x4c91cb);}else alert('Invalid\x20ZIP\x20file.');}catch(_0x3cca39){console[_0x239b2f(0x201)](_0x239b2f(0x1bc),_0x3cca39),alert('Failed\x20to\x20read\x20ZIP\x20file.');}},_0x20dcbb['readAsArrayBuffer'](_0x4478e7);}else{if(_0x4478e7[_0x2e9473(0x1d2)]===_0x2e9473(0x19f)||_0x4478e7[_0x2e9473(0x1d2)]===_0x2e9473(0x184)||_0x4478e7[_0x2e9473(0x192)][_0x2e9473(0x1dd)]('.txt')){const _0x34623b=new FileReader();_0x34623b[_0x2e9473(0x1db)]=async _0x1a8f1d=>{const _0x35f6c0=_0x2e9473;await _0x35d66a(_0x1a8f1d[_0x35f6c0(0x20c)][_0x35f6c0(0x16b)]);},_0x34623b[_0x2e9473(0x1a4)](_0x4478e7);}else alert(_0x2e9473(0x1f7));}_0x297bdd[_0x2e9473(0x20c)][_0x2e9473(0x1fb)]='';}async function _0x35d66a(_0x3ba14a){const _0x495403=_0x182b06;try{const _0x3c003b=JSON[_0x495403(0x1d7)](_0x3ba14a);_0x3c003b&&Array[_0x495403(0x20d)](_0x3c003b[_0x495403(0x1dc)])?(localStorage['setItem']('portals',JSON[_0x495403(0x1f1)](_0x3c003b[_0x495403(0x1dc)])),showConfirmationModal(_0x495403(0x1e6),()=>{location['reload']();})):alert(_0x495403(0x1c7));}catch(_0x26e771){console[_0x495403(0x201)](_0x495403(0x1e7),_0x26e771),alert(_0x495403(0x17a));}}_0x3aef77();});
+        document.addEventListener('DOMContentLoaded', function() {
+            let isVideoFinished = false;
+
+            const bgVideo = document.getElementById('bg-video');
+            const bgImage = document.getElementById('bg-image');
+
+            if (bgVideo && bgImage) {
+                const handleVideoEnd = () => {
+                    bgVideo.style.opacity = '0';
+                    if (!document.body.classList.contains('light-mode')) {
+                        bgImage.style.opacity = '0.35';
+                    }
+                    isVideoFinished = true;
+                };
+
+                const handleVideoError = (e) => {
+                    console.error("Video background failed:", e);
+                    handleVideoEnd();
+                };
+                
+                bgVideo.addEventListener('ended', handleVideoEnd);
+                bgVideo.addEventListener('error', handleVideoError);
+
+                const playPromise = bgVideo.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.warn("Autoplay blocked:", error);
+                        handleVideoEnd();
+                    });
+                }
+            }
+
+            const logoContainer = document.getElementById('logo-container');
+            const portalsGrid = document.getElementById('portals-grid');
+            const portalForm = document.getElementById('portal-form');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const timeDisplay = document.getElementById('time');
+            const dateDisplay = document.getElementById('date');
+            const importFileInput = document.getElementById('import-file-input');
+            const confirmationModal = document.getElementById('confirmation-modal');
+            const confirmationMessage = document.getElementById('confirmation-message');
+            const confirmOkBtn = document.getElementById('confirm-ok-btn');
+            const confirmCancelBtn = document.getElementById('confirm-cancel-btn');
+
+            let portals = [];
+            let onConfirmCallback = null;
+
+            const defaultPortals = [
+                { 
+                    name: 'Bane Premium Access', 
+                    url: 'https://api.whatsapp.com/send/?phone=6287872521809&text=Halo%2C+saya+ingin+membeli+Akses+Website+Premium+Tanpa+Iklan+sebesar+Rp25.000.+Mohon+transfer+ke+DANA+087734421123+dan+kirimkan+bukti+pembayarannya.+Pesanan+akan+diproses+maksimal+1x24+jam.+Terima+kasih.&type=phone_number&app_absent=0', 
+                    icon: 'fas fa-gem', 
+                    color: '#fcbf49', 
+                    description: 'Upgrade sekarang — akses semua website uranus tanpa iklan cuma Rp25K' 
+                },
+                { 
+                    name: 'Buy Bane Lord Of Scalding Seas', 
+                    url: 'https://api.whatsapp.com/send/?phone=6287872521809&text=Halo%2C+saya+ingin+membeli+Kode+Website+MLBB+Bane+Skin+Lord+Of+Scalding+Seas+sebesar+Rp100.000.+Mohon+transfer+ke+DANA+087734421123+dan+kirimkan+bukti+pembayarannya.+Pesanan+akan+diproses+maksimal+1x24+jam.+Terima+kasih.&type=phone_number&app_absent=0', 
+                    icon: 'fas fa-fire', 
+                    color: '#ff7a18', 
+                    description: 'Beli kode website MLBB Bane Lord Of Scalding Seas edisi premium seharga Rp100K' 
+                }
+            ];
+
+            function initPortalApp() {
+                portals = JSON.parse(localStorage.getItem('portals')) || defaultPortals;
+                renderPortals();
+                updateTime();
+                setInterval(updateTime, 1000);
+
+                logoContainer.addEventListener('click', () => {
+                    if (!isVideoFinished) {
+                        console.log("Light mode locked until video ends.");
+                        return;
+                    }
+                    document.body.classList.toggle('light-mode');
+                    if (!document.body.classList.contains('light-mode') && bgVideo.style.opacity === '0') {
+                        bgImage.style.opacity = '0.35';
+                    }
+                });
+
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.add('open');
+                    mobileMenuOverlay.classList.remove('hidden');
+                    mobileMenuOverlay.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+
+                mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+                portalForm.addEventListener('submit', handlePortalFormSubmit);
+                importFileInput.addEventListener('change', handleFileImport);
+                confirmCancelBtn.addEventListener('click', () => {
+                    confirmationModal.classList.add('hidden');
+                    confirmationModal.style.display = 'none';
+                });
+                confirmOkBtn.addEventListener('click', () => {
+                    if (typeof onConfirmCallback === 'function') {
+                        onConfirmCallback();
+                    }
+                    confirmationModal.classList.add('hidden');
+                    confirmationModal.style.display = 'none';
+                    onConfirmCallback = null;
+                });
+
+                // Show desktop nav on larger screens
+                window.addEventListener('resize', updateNavDisplay);
+                updateNavDisplay();
+            }
+
+            function updateNavDisplay() {
+                const desktopNav = document.querySelector('.desktop-nav');
+                const mobileToggle = document.querySelector('.mobile-nav-toggle');
+                if (window.innerWidth >= 768) {
+                    if (desktopNav) desktopNav.style.display = 'block';
+                    if (mobileToggle) mobileToggle.style.display = 'none';
+                } else {
+                    if (desktopNav) desktopNav.style.display = 'none';
+                    if (mobileToggle) mobileToggle.style.display = 'block';
+                }
+            }
+
+            window.closeMobileMenu = function() {
+                mobileMenu.classList.remove('open');
+                mobileMenuOverlay.classList.add('hidden');
+                mobileMenuOverlay.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+
+            window.showConfirmationModal = function(message, callback) {
+                confirmationMessage.textContent = message;
+                onConfirmCallback = callback;
+                confirmationModal.classList.remove('hidden');
+                confirmationModal.style.display = 'flex';
+            }
+
+            function renderPortals() {
+                portalsGrid.innerHTML = '';
+
+                portals.forEach((portal, index) => {
+                    const portalElement = document.createElement('div');
+                    portalElement.style.height = '100%';
+
+                    const portalColor = portal.color || '#ff7a18';
+                    const cardStyle = `color: ${portalColor}; border-color: ${portalColor};`;
+                    const textStyle = `color: ${portalColor}; text-shadow: 0 0 15px ${portalColor};`;
+                    
+                    let iconClass = portal.icon || 'fas fa-fire';
+                    if (!portal.icon || (!portal.icon.startsWith('fa') && !portal.icon.startsWith('http') && !portal.icon.startsWith('data:image'))) {
+                        iconClass = 'fas fa-fire'; 
+                    }
+
+                    const iconHtml = (iconClass.startsWith('data:image') || iconClass.startsWith('http'))
+                        ? `<img src="${iconClass}" style="margin: 0 auto 1rem; height: 3rem; width: 3rem; object-fit: contain;" alt="${portal.name} icon" onerror="this.style.display='none'; this.nextSibling.style.display='block';"><i class="fas fa-fire" style="font-size: 3rem; margin-bottom: 1rem; display: none; ${textStyle}"></i>`
+                        : `<i class="${iconClass}" style="font-size: 3rem; margin-bottom: 1rem; ${textStyle}"></i>`;
+
+                    const descriptionHtml = portal.description ? portal.description : '&nbsp;';
+
+                    portalElement.innerHTML = `
+                        <div class="portal-card" style="${cardStyle} height: 100%;">
+                            <a href="${portal.url}" target="_blank" style="display: block; height: 100%; padding: 1.5rem; text-align: center; position: relative; text-decoration: none; color: inherit;">
+                                <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                                    ${iconHtml}
+                                    <h3 class="font-cinzel" style="font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; word-break: break-word; font-size: 1.125rem; margin-bottom: 0.5rem; ${textStyle}">${portal.name}</h3>
+                                    <p style="font-size: 0.875rem; color: rgba(252, 191, 73, 0.8); margin-top: 0.5rem; line-height: 1.4;">${descriptionHtml}</p>
+                                </div>
+                                
+                                <button onclick="event.preventDefault(); event.stopPropagation(); showConfirmationModal('Destroy portal ${portal.name}?', () => deletePortalAction(${index}))" class="delete-btn">
+                                    <i class="fas fa-times" style="font-size: 0.875rem;"></i>
+                                </button>
+                            </a>
+                        </div>
+                    `;
+
+                    portalsGrid.appendChild(portalElement);
+                });
+            }
+
+            function handlePortalFormSubmit(e) {
+                e.preventDefault();
+
+                const name = document.getElementById('portal-name').value;
+                const url = document.getElementById('portal-url').value || "#";
+                const description = document.getElementById('portal-description').value || "";
+                const icon = document.getElementById('portal-icon').value;
+                const color = document.querySelector('input[name="portal-color"]:checked').value;
+
+                addPortalToArray(name, url, icon, color, description);
+            }
+
+            function addPortalToArray(name, url, icon, color, description) {
+                portals.push({ name, url, icon, color, description });
+                savePortals();
+                renderPortals();
+                document.getElementById('add-portal-modal').classList.add('hidden');
+                document.getElementById('add-portal-modal').style.display = 'none'; // DIUBAH: Gunakan style.display
+                resetPortalForm();
+            }
+
+            window.deletePortalAction = function(index) {
+                portals.splice(index, 1);
+                savePortals();
+                renderPortals();
+            }
+
+            function resetPortalForm() {
+                portalForm.reset();
+            }
+
+            function savePortals() {
+                localStorage.setItem('portals', JSON.stringify(portals));
+            }
+
+            window.showAddLinkModal = function() {
+                document.getElementById('add-portal-modal').classList.remove('hidden');
+                document.getElementById('add-portal-modal').style.display = 'flex'; // DIUBAH: Gunakan style.display
+                resetPortalForm();
+                if (mobileMenu.classList.contains('open')) {
+                    closeMobileMenu();
+                }
+            }
+
+            function updateTime() {
+                const now = new Date();
+                timeDisplay.textContent = now.toLocaleTimeString('en-GB');
+                dateDisplay.textContent = now.toLocaleDateString('id-ID', {
+                    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+                });
+            }
+
+            window.resetAllSettings = function() {
+                localStorage.removeItem('portals');
+                location.reload();
+            }
+
+            window.backupData = async () => {
+                const dataToBackup = {
+                    portals: JSON.parse(localStorage.getItem('portals')) || defaultPortals,
+                };
+                const dataStr = JSON.stringify(dataToBackup, null, 2);
+                try {
+                    const zip = new JSZip();
+                    zip.file("uranusfazry_backup.json", dataStr);
+                    const content = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+                    const url = URL.createObjectURL(content);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'uranusfazry_backup.zip';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                } catch (error) {
+                    console.error("Error creating ZIP:", error);
+                    alert("Backup failed.");
+                }
+            };
+
+            window.importData = () => {
+                importFileInput.click();
+            };
+
+            async function handleFileImport(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                if (file.type === "application/zip" || file.name.endsWith(".zip")) {
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        try {
+                            const zip = await JSZip.loadAsync(e.target.result);
+                            const backupFile = zip.file("uranusfazry_backup.json");
+                            if (backupFile) {
+                                const jsonContent = await backupFile.async("string");
+                                await processImportedData(jsonContent);
+                            } else {
+                                alert('Invalid ZIP file.');
+                            }
+                        } catch (error) {
+                            console.error('Error reading ZIP:', error);
+                            alert('Failed to read ZIP file.');
+                        }
+                    };
+                    reader.readAsArrayBuffer(file);
+                } else if (file.type === "text/plain" || file.type === "application/json" || file.name.endsWith(".txt")) {
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        await processImportedData(e.target.result);
+                    };
+                    reader.readAsText(file);
+                } else {
+                    alert("Unsupported file type.");
+                }
+                event.target.value = '';
+            }
+
+            async function processImportedData(jsonContent) {
+                try {
+                    const importedData = JSON.parse(jsonContent);
+                    if (importedData && Array.isArray(importedData.portals)) {
+                        localStorage.setItem('portals', JSON.stringify(importedData.portals));
+                        showConfirmationModal('Data imported. Page will reload.', () => {
+                            location.reload();
+                        });
+                    } else {
+                        alert('Invalid backup format.');
+                    }
+                } catch (error) {
+                    console.error('Error parsing backup:', error);
+                    alert('Failed to parse backup file.');
+                }
+            }
+
+            initPortalApp();
+        });
     </script>
 
 </body>
